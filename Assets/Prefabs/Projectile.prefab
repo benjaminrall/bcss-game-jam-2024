@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7908810049262311976}
   - component: {fileID: 7676913451208658345}
+  - component: {fileID: 4798166462802109941}
   m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1064335163058292876}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -77,11 +78,11 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.1
-  m_PreviewTimeScale: 0.1
+  m_Time: 0.08
+  m_PreviewTimeScale: 0.13
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.4
+    widthMultiplier: 0.3
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -108,7 +109,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 0.5882353}
       key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -148,6 +149,20 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &4798166462802109941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064335163058292876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c7a9bcc59eb664198b0765b388a12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetMarker: {fileID: 0}
+  yOffset: -0.089
 --- !u!1 &1809031243471988561
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,6 +176,7 @@ GameObject:
   - component: {fileID: 1744716955079961791}
   - component: {fileID: 7074619981989252812}
   - component: {fileID: 7759164978355326786}
+  - component: {fileID: 2115903317853937214}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Projectile
@@ -178,7 +194,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7908810049262311976}
@@ -225,10 +241,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1576191661
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6afb692583bcdf4f99681b1b0257a89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -274,7 +290,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.36
 --- !u!114 &7074619981989252812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4968cf4b97aa1e84fa7f8189dfc5b147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 8
+  projectileSpeed: 10
+  spriteRenderer: {fileID: 4246811242971897328}
 --- !u!50 &7759164978355326786
 Rigidbody2D:
   serializedVersion: 5
@@ -315,3 +332,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2115903317853937214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809031243471988561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c7a9bcc59eb664198b0765b388a12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetMarker: {fileID: 0}
+  yOffset: -0.16

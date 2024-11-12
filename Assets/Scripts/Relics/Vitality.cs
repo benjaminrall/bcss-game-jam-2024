@@ -15,11 +15,11 @@ namespace Relics
 
         public override void ApplyEffect(PlayerController player)
         {
-            player.Health = effectType switch
+            player.MaxHealth = effectType switch
             {
-                EffectType.Additive => player.Health + effectStrength,
-                EffectType.Multiplicative => player.Health * effectStrength,
-                _ => player.Health
+                EffectType.Additive => player.MaxHealth + effectStrength,
+                EffectType.Multiplicative => player.MaxHealth * effectStrength,
+                _ => player.MaxHealth
             };
         }
     }

@@ -8,5 +8,12 @@ namespace Relics
         public PlayerColour Colour { get; set; }
 
         public abstract void ApplyEffect(PlayerController player);
+        
+        public Relic GetColourInstance(PlayerColour colour)
+        {
+            Relic newRelic = (Relic) MemberwiseClone();
+            newRelic.Colour = colour;
+            return newRelic;
+        }
     }
 }

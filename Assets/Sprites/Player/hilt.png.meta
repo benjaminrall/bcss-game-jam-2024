@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: d950327b6cfdab34ead915f557b0c128
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4128977443562097816
+    second: hilt_0
+  - first:
+      213: -2959758290161192270
+    second: hilt_1
+  - first:
+      213: -1221324771427855407
+    second: hilt_2
+  - first:
+      213: -272839582803299694
+    second: hilt_3
+  - first:
+      213: 2228844304035004977
+    second: hilt_4
+  - first:
+      213: 4740055688426921113
+    second: hilt_5
+  - first:
+      213: -500622147735755923
+    second: hilt_6
+  - first:
+      213: -5758126763113097393
+    second: hilt_7
+  - first:
+      213: -7565174079520916807
+    second: hilt_8
+  - first:
+      213: 100482549309071683
+    second: hilt_9
+  - first:
+      213: 50873231629189618
+    second: hilt_10
+  - first:
+      213: -560332090995024501
+    second: hilt_11
+  - first:
+      213: 4993202776764717729
+    second: hilt_12
+  - first:
+      213: 7448546466196265024
+    second: hilt_13
+  - first:
+      213: 4390463701602919792
+    second: hilt_14
+  - first:
+      213: -7946688395503017079
+    second: hilt_15
+  - first:
+      213: 3363103106855904840
+    second: hilt_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 0
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.303}
+  spritePixelsToUnits: 800
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hilt_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 381
+        width: 81
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89c8e11db131d4930800000000000000
+      internalID: 4128977443562097816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_1
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 442
+        width: 40
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b2bced3483dce6d0800000000000000
+      internalID: -2959758290161192270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_2
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 455
+        width: 84
+        height: 268
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d358ab579bfc0fe0800000000000000
+      internalID: -1221324771427855407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_3
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 442
+        width: 40
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 292f75258dda63cf0800000000000000
+      internalID: -272839582803299694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_4
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 381
+        width: 81
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 132c8a9e5127eee10800000000000000
+      internalID: 2228844304035004977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_5
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 406
+        width: 28
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99c9144e88f08c140800000000000000
+      internalID: 4740055688426921113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_6
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 408
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d63648d1fce6d09f0800000000000000
+      internalID: -500622147735755923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_7
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 408
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4759f087360710b0800000000000000
+      internalID: -5758126763113097393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_8
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 406
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bab926b14a130790800000000000000
+      internalID: -7565174079520916807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_9
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 389
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34161b1a85cf46100800000000000000
+      internalID: 100482549309071683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_10
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 389
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f185d34fecb4b000800000000000000
+      internalID: 50873231629189618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_11
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 276
+        width: 12
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8d5df79eec4938f0800000000000000
+      internalID: -560332090995024501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_12
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 269
+        width: 10
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aa1e88687b6b4540800000000000000
+      internalID: 4993202776764717729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 284
+        width: 11
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0489e920c8d8e5760800000000000000
+      internalID: 7448546466196265024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_14
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 274
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 075e945997f0eec30800000000000000
+      internalID: 4390463701602919792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_15
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 77
+        width: 156
+        height: 195
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 983e255f101b7b190800000000000000
+      internalID: -7946688395503017079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hilt_16
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 13
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 846a82b05742cae20800000000000000
+      internalID: 3363103106855904840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      hilt_0: 4128977443562097816
+      hilt_1: -2959758290161192270
+      hilt_10: 50873231629189618
+      hilt_11: -560332090995024501
+      hilt_12: 4993202776764717729
+      hilt_13: 7448546466196265024
+      hilt_14: 4390463701602919792
+      hilt_15: -7946688395503017079
+      hilt_16: 3363103106855904840
+      hilt_2: -1221324771427855407
+      hilt_3: -272839582803299694
+      hilt_4: 2228844304035004977
+      hilt_5: 4740055688426921113
+      hilt_6: -500622147735755923
+      hilt_7: -5758126763113097393
+      hilt_8: -7565174079520916807
+      hilt_9: 100482549309071683
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
