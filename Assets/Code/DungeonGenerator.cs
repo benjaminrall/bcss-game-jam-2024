@@ -55,9 +55,19 @@ public class DungeonGenerator : MonoBehaviour
     public Vector2 topRight = new Vector2(100, 100);
     public float minimumDistance = 1.0f;
     public int iterationPerPoint = 30;
-    public GameObject pointPrefab;
-    public GameObject pointPrefab2;
+    public GameObject wall;
+    public GameObject floor;
+    public GameObject redWall;
+    public GameObject blueWall;
+    public GameObject greenWall;
+    public GameObject redShrine;
+    public GameObject blueShrine;
+    public GameObject greenShrine;
+    public GameObject player;
+    public GameObject lockedDoor;
     public Map map;
+    [Range(0.0f, 0.3f)]
+    public float colourDoorChance;
     public List<RoomSeeds> rooms = new List<RoomSeeds>();
 
     private List<Vector2Int> samplePoints;
@@ -126,6 +136,77 @@ public class DungeonGenerator : MonoBehaviour
             DFS(neighboringRoom, visitedRooms);
         }
     }
+
+    public bool IsGraphFullyConnectedColours(List<RoomSeeds> rooms)
+    {
+        // Step 1: Create a dictionary to track visited rooms and the colors used to visit them
+        Dictionary<RoomSeeds, HashSet<PlayerColour>> visitedRooms = new Dictionary<RoomSeeds, HashSet<PlayerColour>>();
+
+        // Step 2: Perform DFS starting from the first room with each initial color
+        DFSColour(rooms[0], visitedRooms, PlayerColour.White);
+
+        // Step 3: Check if every room has been visited with at least one color
+        return visitedRooms.Keys.Count == rooms.Count;
+    }
+
+    // Helper method to perform Depth-First Search (DFS)
+    private void DFSColour(RoomSeeds currentRoom, Dictionary<RoomSeeds, HashSet<PlayerColour>> visitedRooms, PlayerColour currentColour)
+    {
+        // If the room has already been visited with the current color, return
+        if (visitedRooms.ContainsKey(currentRoom) && visitedRooms[currentRoom].Contains(currentColour))
+            return;
+
+        // Mark the room as visited with the current color
+        if (!visitedRooms.ContainsKey(currentRoom))
+            visitedRooms[currentRoom] = new HashSet<PlayerColour>();
+
+        visitedRooms[currentRoom].Add(currentColour);
+
+        // Get the connections based on the current color
+        HashSet<RoomSeeds> connections = new HashSet<RoomSeeds>();
+        switch (currentColour)
+        {
+            case PlayerColour.Red:
+                connections = currentRoom.redConnections;
+                break;
+            case PlayerColour.Blue:
+                connections = currentRoom.blueConnections;
+                break;
+            case PlayerColour.Green:
+                connections = currentRoom.greenConnections;
+                break;
+        }
+
+        foreach (var neighboringRoom in connections)
+        {
+            DFSColour(neighboringRoom, visitedRooms, currentColour);
+        }
+
+        // Handle shrines that allow color changes and continue traversal
+        if (currentRoom.blueShrinePresent)
+        {
+            foreach (var neighboringRoom in currentRoom.blueConnections)
+            {
+                DFSColour(neighboringRoom, visitedRooms, PlayerColour.Blue);
+            }
+        }
+        if (currentRoom.redShrinePresent)
+        {
+            foreach (var neighboringRoom in currentRoom.redConnections)
+            {
+                DFSColour(neighboringRoom, visitedRooms, PlayerColour.Red);
+            }
+        }
+        if (currentRoom.greenShrinePresent)
+        {
+            foreach (var neighboringRoom in currentRoom.greenConnections)
+            {
+                DFSColour(neighboringRoom, visitedRooms, PlayerColour.Green);
+            }
+        }
+    }
+
+
 
     public static int GetDoorValue(int x)
     {
@@ -328,7 +409,7 @@ public class DungeonGenerator : MonoBehaviour
                     int oneSide = map.getValueAt(adjacent);
                     int twoSide = map.getValueAt(opposite);
 
-                    if (oneSide != twoSide && oneSide != -1 && twoSide != -1 && oneSide != -2 && twoSide != -2)
+                    if (oneSide != twoSide && oneSide >= 0 && twoSide >= 0)
                     {
 
                         if (!rooms[oneSide].neighbouringRooms.ContainsKey(rooms[twoSide]))
@@ -346,19 +427,24 @@ public class DungeonGenerator : MonoBehaviour
 
                     }
                 }
+            if(map.getValueAt(current) == -2)
+            {
+                map.setCell(current, -1);
+            }
         }
 
         rooms = rooms.Where(room => room.neighbouringRooms.Any()).ToList();
 
         Debug.Log("The graph is connected:" + IsGraphFullyConnected(rooms));
-        var sortedRooms = rooms.OrderByDescending(room => room.roomSize).ToList();
+        var sortedRooms = rooms.OrderBy(room => room.roomSize).ToList();
         reduceRoomConnections(sortedRooms, 0);
 
         HashSet<(int, int)> processedRoomPairs = new HashSet<(int, int)>();
 
         // Iterate through rooms and place doors between neighboring rooms
-        foreach (var room in rooms)
+        foreach (var room in sortedRooms)
         {
+            int colour = -3;
             foreach (KeyValuePair<RoomSeeds, List<Vector2Int>> entry in room.neighbouringRooms)
             {
                 RoomSeeds neighboringRoom = entry.Key;
@@ -374,43 +460,118 @@ public class DungeonGenerator : MonoBehaviour
                 {
                     continue;
                 }
-
                 processedRoomPairs.Add((minRoomID, maxRoomID));
+                if (room.neighbouringRooms.Count == 1)
+                {
+                    float randomNumber = Random.Range(0f, 1f);
+                    //red
+                    if (randomNumber < colourDoorChance/2)
+                    {
+                        colour = -4;
+                        room.redConnections.Add(entry.Key);
+                        entry.Key.redConnections.Add(room);
+                    }
+                    //blue
+                    else if (randomNumber < (colourDoorChance * 2)/2)
+                    {
+                        colour = -5;
+                        room.blueConnections.Add(entry.Key);
+                        entry.Key.blueConnections.Add(room);
+                    }
+                    //green
+                    else if (randomNumber < (colourDoorChance * 3)/2)
+                    {
+                        colour = -6;
+                        room.greenConnections.Add(entry.Key);
+                        entry.Key.greenConnections.Add(room);
+                    } else
+                    {
+                        colour = -7;
+                        entry.Key.greenConnections.Add(room);
+                        entry.Key.blueConnections.Add(room);
+                        entry.Key.redConnections.Add(room);
+                        room.redConnections.Add(entry.Key);
+                        room.blueConnections.Add(entry.Key);
+                        room.greenConnections.Add(entry.Key);
+                    }
+                }
+            
+                else
+                {
 
+                    
+                    float randomNumber = Random.Range(0f, 1f);
+                    //red
+                    if (randomNumber < colourDoorChance)
+                    {
+                        colour = -4;
+                        room.redConnections.Add(entry.Key);
+                        entry.Key.redConnections.Add(room);
+                    }
+                    //blue
+                    else if (randomNumber < colourDoorChance * 2)
+                    {
+                        colour = -5;
+                        room.blueConnections.Add(entry.Key);
+                        entry.Key.blueConnections.Add(room);
+                    }
+                    //green
+                    else if (randomNumber < colourDoorChance * 3)
+                    {
+                        colour = -6;
+                        room.greenConnections.Add(entry.Key);
+                        entry.Key.greenConnections.Add(room);
+                    } else
+                    {
+                        entry.Key.greenConnections.Add(room);
+                        entry.Key.blueConnections.Add(room);
+                        entry.Key.redConnections.Add(room);
+                        room.redConnections.Add(entry.Key);
+                        room.blueConnections.Add(entry.Key);
+                        room.greenConnections.Add(entry.Key);
+                    }
+                }
 
                 Vector2Int door = doorPositions[Random.Range(0, doorPositions.Count)];
-                map.setCell(door, -3);
+                
+                map.setCell(door, colour);
             }
         }
-
-        foreach (var room in rooms)
+        Debug.Log(IsGraphFullyConnectedColours(rooms));
+        while (!IsGraphFullyConnectedColours(rooms))
         {
-            string setContents = "";
-            foreach (KeyValuePair<RoomSeeds, List<Vector2Int>> entry in room.neighbouringRooms)
-            {
-                RoomSeeds otherRoom = entry.Key;  // Access the RoomSeeds object (key)
-                setContents += otherRoom.roomNumber + " ";  // Add the room number to the string
+            int shrineNumber = 0;
+            RoomSeeds randomRoom = rooms[Random.Range(0, rooms.Count)];
+            int choice = Random.Range(0, 3);
+            randomRoom.blueShrinePresent = false;
+            randomRoom.greenShrinePresent = false;
+            randomRoom.redShrinePresent = false;
+            if (choice == 0)
+                randomRoom.blueShrinePresent = true;
+            if (choice == 1)
+                randomRoom.redShrinePresent = true;
+
+            if (choice == 2)
+                randomRoom.greenShrinePresent = true;
             }
 
-            Debug.Log(room.centre + " " + setContents);
-        }
         for (int i = 0; i < map.grid.Count; i++)
         {
             if (map.grid[i] == -1)
             {
                 Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
-                Instantiate(pointPrefab, position, Quaternion.identity);
+                Instantiate(wall, position, Quaternion.identity);
             }
             else if (map.grid[i] >= 0)
             {
                 Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
-                GameObject roomObj = Instantiate(pointPrefab2, position, Quaternion.identity);
+                GameObject roomObj = Instantiate(floor, position, Quaternion.identity);
                 // Randomly assign a color to the room
                 int roomID = map.grid[i];
                 Random.InitState(roomID); // Initialize the random generator with the roomID as the seed
 
                 // Generate a random color based on the seed
-                Color roomColor = Random.ColorHSV(); // This will generate a consistent color for this room
+                Color roomColor = Random.ColorHSV(); 
 
                 // Apply the room color to the object's renderer
                 Renderer renderer = roomObj.GetComponent<Renderer>();
@@ -418,10 +579,53 @@ public class DungeonGenerator : MonoBehaviour
                 {
                     renderer.material.color = roomColor; // Apply the generated color
                 }
+            } else if (map.grid[i] == -3)
+            {
+                Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
+                GameObject roomObj = Instantiate(floor, position, Quaternion.identity);
+            } else if(map.grid[i] == -4)
+            {
+                Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
+                GameObject roomObj = Instantiate(redWall, position, Quaternion.identity);
+            }
+            else if (map.grid[i] == -5)
+            {
+                Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
+                GameObject roomObj = Instantiate(blueWall, position, Quaternion.identity);
+            }
+            else if (map.grid[i] == -6)
+            {
+                Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
+                GameObject roomObj = Instantiate(greenWall, position, Quaternion.identity);
             }
         }
+        foreach (var room in rooms)
+        {
+            List<Vector2Int> possibleTiles = new List<Vector2Int>(room.roomTiles);
+            if (room.blueShrinePresent)
+            {
+                var possibleTile = possibleTiles[Random.Range(0, possibleTiles.Count)];
+                Vector3 position = new Vector3(possibleTile.x, possibleTile.y, 0);
+                GameObject roomObj = Instantiate(blueShrine, position, Quaternion.identity);
+            }
+            if (room.redShrinePresent)
+            {
+                var possibleTile = possibleTiles[Random.Range(0, possibleTiles.Count)];
+                Vector3 position = new Vector3(possibleTile.x, possibleTile.y, 0);
+                GameObject roomObj = Instantiate(redShrine, position, Quaternion.identity);
+            }
+            if (room.greenShrinePresent)
+            {
+                var possibleTile = possibleTiles[Random.Range(0, possibleTiles.Count)];
+                Vector3 position = new Vector3(possibleTile.x, possibleTile.y, 0);
+                GameObject roomObj = Instantiate(greenShrine, position, Quaternion.identity);
+            }
+        }
+        Vector3 newPosition = new Vector3(rooms[0].centre.x, rooms[0].centre.y, 0);
+        player.transform.position = newPosition;
 
     }
+    
 
     // Update is called once per frame
     void Update()
