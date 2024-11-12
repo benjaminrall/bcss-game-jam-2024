@@ -13,7 +13,14 @@ public class RoomSeeds
     Queue<Vector2Int> maxQueue = new Queue<Vector2Int>();
     List<RoomSeeds> rooms;
     public Dictionary<RoomSeeds, List<Vector2Int>> neighbouringRooms = new Dictionary<RoomSeeds, List<Vector2Int>>();
+    public HashSet<RoomSeeds> redConnections = new HashSet<RoomSeeds>();
+    public HashSet<RoomSeeds> blueConnections = new HashSet<RoomSeeds>();
+    public HashSet<RoomSeeds> greenConnections = new HashSet<RoomSeeds>();
     public Dictionary<RoomSeeds, List<Vector2Int>> chosenDoors = new Dictionary<RoomSeeds, List<Vector2Int>>();
+    public HashSet<Vector2Int> roomTiles = new HashSet<Vector2Int>();
+    public bool redShrinePresent = false;
+    public bool blueShrinePresent = false;
+    public bool greenShrinePresent = false;
     public int roomSize = 0;
     public int doors;
 
@@ -133,6 +140,7 @@ public class RoomSeeds
                 if (nodesToBeChecked.Contains(current))
                 {
                     map.setCell(current, roomNumber);
+                    roomTiles.Add(current);
                     roomSize += 1;
                 }
             }

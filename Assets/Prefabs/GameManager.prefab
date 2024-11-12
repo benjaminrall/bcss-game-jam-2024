@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1955278482876862314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7857145028196843427}
+  - component: {fileID: 4436207637871491024}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7857145028196843427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955278482876862314}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4436207637871491024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955278482876862314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f59053c2413dd4db5bda4a600b04f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  commonRelics:
+  - {fileID: 11400000, guid: 807196b7ca38b904b8a173d42a4d0f22, type: 2}
+  - {fileID: 11400000, guid: 62bf499e0fb99af4a93090195d4498c5, type: 2}
+  - {fileID: 11400000, guid: a7fb0395c834fe749b5bbf67a6157317, type: 2}
+  - {fileID: 11400000, guid: c31cbfe9f0ae71d42ac34f18460fe79b, type: 2}
+  - {fileID: 11400000, guid: 4510d5d6194b5e241b152d372d1c0d99, type: 2}
+  - {fileID: 11400000, guid: 695d85e736f665a4a977ea1ac8fda7b7, type: 2}
+  - {fileID: 11400000, guid: 6021e9449e2a21e45991d452571987a6, type: 2}
+  - {fileID: 11400000, guid: dfa105f4571f7a546893bdadac06067a, type: 2}
+  - {fileID: 11400000, guid: 4fd801cfc20ae454c853f6f8abfc857c, type: 2}
+  - {fileID: 11400000, guid: 5a0e40b8a75715f479ca58a40bbfeefa, type: 2}
+  - {fileID: 11400000, guid: b6ae04ce842bc084f9a540c8005fd1f6, type: 2}
+  - {fileID: 11400000, guid: 30fdc7521b2817f48a78d2557d5367a4, type: 2}
+  - {fileID: 11400000, guid: 73e3644c9f3d8d846b2b194945dd2797, type: 2}
+  adaptiveRelics:
+  - {fileID: 11400000, guid: 5a16d1cb84ec9c94fa8cf07dcc398f86, type: 2}
+  - {fileID: 11400000, guid: a3a02b65d31f9c44096e1314ffb98905, type: 2}
+  - {fileID: 11400000, guid: df19ac80b4f45e34db208cdc40158fdf, type: 2}
+  - {fileID: 11400000, guid: b4349e0603c9e544c86dcdae769d059d, type: 2}
+  - {fileID: 11400000, guid: 9d583fa8ad46b0d44aa9f96ab7e16dfb, type: 2}
+  - {fileID: 11400000, guid: 3a708b7eeaa9ab34e97b4476138a00a2, type: 2}
+  - {fileID: 11400000, guid: 11d0bfdfaf396e6429e47b70aa94e872, type: 2}
+  - {fileID: 11400000, guid: 7e9a823e7bfd77842b606d0733102d9b, type: 2}
+  - {fileID: 11400000, guid: 6f83a6fa2d3e6a549a9e79104444ef90, type: 2}
+  - {fileID: 11400000, guid: 911121ef9bfef85429dd486c79653a46, type: 2}
+  - {fileID: 11400000, guid: 965893b85d9ee81448cf8e93bcc2c596, type: 2}
+  pureRelics:
+  - {fileID: 11400000, guid: a95ff68d3e6207846a36c93e619a286c, type: 2}
+  - {fileID: 11400000, guid: f7fd01807b6fe174d849ca09a2189643, type: 2}
+  - {fileID: 11400000, guid: 64950937cd9ab994a95d48601e2d840a, type: 2}
+  - {fileID: 11400000, guid: 13966ae6cf99d07419af7fde35fa0d87, type: 2}
+  - {fileID: 11400000, guid: 63a1f3f25098b354085a6801a6b4d01a, type: 2}
+  - {fileID: 11400000, guid: e49ff39c299535a499e11307cffe69e0, type: 2}
+  - {fileID: 11400000, guid: 20c2358ad198a884887f7792c628ae44, type: 2}
+  - {fileID: 11400000, guid: 230d8a883e6242b47842c08685aa5270, type: 2}
+  - {fileID: 11400000, guid: 79df20ca796b4fc42ad874df5312bb9c, type: 2}
+  - {fileID: 11400000, guid: f1d1cf23437f92d44bccd98989c89663, type: 2}
+  - {fileID: 11400000, guid: 78ee787201e40a4489b4fc48baaf0f98, type: 2}
+  - {fileID: 11400000, guid: 0f7bb6081cd3eed448daae91e336a4c7, type: 2}
+  - {fileID: 11400000, guid: 16e0aee491dca9543baed3331ca7f13a, type: 2}
+  testRelic:
+    i1: 1
+    i2: 3
