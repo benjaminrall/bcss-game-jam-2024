@@ -569,7 +569,7 @@ GameObject:
   - component: {fileID: 683522100}
   - component: {fileID: 683522099}
   m_Layer: 0
-  m_Name: small circle (1)
+  m_Name: floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -619,8 +619,8 @@ SpriteRenderer:
   m_SortingLayerID: -1013331211
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.2627451, g: 0.2650909, b: 0.5764706, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 7c55555a08eac0a4a9cd5fc86d50d434, type: 3}
+  m_Color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -911,6 +911,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 8146658085683642833, guid: 0988bf56f73ca4990941e96cd9568dbd, type: 3}
+      propertyPath: orthographic size
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1077,9 +1081,9 @@ GameObject:
   - component: {fileID: 1318362851}
   - component: {fileID: 1318362853}
   - component: {fileID: 1318362854}
-  m_Layer: 0
-  m_Name: small circle
-  m_TagString: Untagged
+  m_Layer: 3
+  m_Name: wall
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1125,8 +1129,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1013331211
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -1213,7 +1217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offsetMarker: {fileID: 0}
-  yOffset: -2
+  yOffset: -0.5
 --- !u!1001 &1350157551
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1638,9 +1642,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 79836025785413880, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420699271480134109, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2472006637121517111, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3215713831160458616, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215713831160458616, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3220444381643220995, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1689,6 +1709,26 @@ PrefabInstance:
     - target: {fileID: 4179051246142871921, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
       propertyPath: m_SortingLayerID
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484911009360627940, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739117951163223987, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7454827261777367536, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804142900806156959, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087285233510693475, guid: bccaeba9edc2abf41b3411f698d7d259, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1758,6 +1798,8 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1029876231}
+  - {fileID: 1274202988}
   - {fileID: 619394802}
   - {fileID: 1825197014}
   - {fileID: 1318362852}
@@ -1768,8 +1810,6 @@ SceneRoots:
   - {fileID: 1672023025}
   - {fileID: 1350157551}
   - {fileID: 30753028}
-  - {fileID: 1029876231}
-  - {fileID: 1274202988}
   - {fileID: 1439716351}
   - {fileID: 65367139}
   - {fileID: 1382378225}

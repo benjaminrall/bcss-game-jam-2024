@@ -543,14 +543,11 @@ public class DungeonGenerator : MonoBehaviour
             int shrineNumber = 0;
             RoomSeeds randomRoom = rooms[Random.Range(0, rooms.Count)];
             int choice = Random.Range(0, 3);
-            randomRoom.blueShrinePresent = false;
-            randomRoom.greenShrinePresent = false;
-            randomRoom.redShrinePresent = false;
+            
             if (choice == 0)
                 randomRoom.blueShrinePresent = true;
             if (choice == 1)
                 randomRoom.redShrinePresent = true;
-
             if (choice == 2)
                 randomRoom.greenShrinePresent = true;
             }
@@ -577,26 +574,34 @@ public class DungeonGenerator : MonoBehaviour
                 Renderer renderer = roomObj.GetComponent<Renderer>();
                 if (renderer != null)
                 {
-                    renderer.material.color = roomColor; // Apply the generated color
+                    //renderer.material.color = roomColor; // Apply the generated color
                 }
             } else if (map.grid[i] == -3)
             {
-                Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
+                Vector3 position = new(i % map.xSize, (int)i / map.xSize, 0);
                 GameObject roomObj = Instantiate(floor, position, Quaternion.identity);
             } else if(map.grid[i] == -4)
             {
                 Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
                 GameObject roomObj = Instantiate(redWall, position, Quaternion.identity);
+                Instantiate(floor, position, Quaternion.identity);
             }
             else if (map.grid[i] == -5)
             {
                 Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
                 GameObject roomObj = Instantiate(blueWall, position, Quaternion.identity);
+                Instantiate(floor, position, Quaternion.identity);
             }
             else if (map.grid[i] == -6)
             {
                 Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
                 GameObject roomObj = Instantiate(greenWall, position, Quaternion.identity);
+                Instantiate(floor, position, Quaternion.identity);
+            }
+            else if (map.grid[i] == -7)
+            {
+                Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
+                Instantiate(floor, position, Quaternion.identity);
             }
         }
         foreach (var room in rooms)
