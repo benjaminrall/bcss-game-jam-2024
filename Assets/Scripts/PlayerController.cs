@@ -323,10 +323,7 @@ public class PlayerController : MonoBehaviour
         
         // Sets player rotational sprite
         int spriteIndex = Mathf.RoundToInt(angle / 45) % 8;
-        if (spriteIndex < 0)
-        {   
-            spriteIndex += 8;
-        }
+        if (spriteIndex < 0) spriteIndex += 8;
         playerSpriteRenderer.sprite = sprites[spriteIndex];
 
         // Melee attacks

@@ -111,7 +111,10 @@ public class ProjectileController : MonoBehaviour
         }
         else if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyController>().Damage(_damage * Mathf.Pow(_momentum, projectileSpeed * _timeAlive));
+            if (!_volatile)
+            {
+                other.GetComponent<EnemyController>().Damage(_damage * Mathf.Pow(_momentum, projectileSpeed * _timeAlive));
+            }
             Destroy(gameObject);
         }
     }
@@ -122,6 +125,6 @@ public class ProjectileController : MonoBehaviour
         
         Explosion explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosion>();
         explosion.SetRadius(_volatileRadius);
-        explosion.Damage = _volatileDamage;
+        explosion.Damage = _volatileDamage * Mathf.Pow(_momentum, projectileSpeed * _timeAlive);
     }
 }
