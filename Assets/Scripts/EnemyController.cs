@@ -8,13 +8,18 @@ public class EnemyController : MonoBehaviour
 
     private float _health;
 
-    public void Damage(float damage)
+    public bool Damage(float damage)
     {
         _health -= damage;
-        if (_health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        if (_health > 0) return false;
+        
+        Destroy(gameObject);
+        return true;
+    }
+
+    public void Stun(float duration)
+    {
+        
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,15 +32,5 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         
-    }
-    
-    
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("MeleeWeapon"))
-        {
-            Destroy(gameObject);
-        }
     }
 }

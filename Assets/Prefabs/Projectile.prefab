@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4968cf4b97aa1e84fa7f8189dfc5b147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 8194128756638061502, guid: e8de31e23f81ff340a79d2cc71bbedac, type: 3}
   projectileSpeed: 10
   spriteRenderer: {fileID: 4246811242971897328}
 --- !u!50 &7759164978355326786

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Relics;
+using Random = UnityEngine.Random;
 
 public enum PlayerColour
 {
@@ -209,6 +210,24 @@ public class PlayerController : MonoBehaviour
 
     private void ShootProjectile(Vector2 direction)
     {
+        ShootSingleProjectile(direction);
+
+        if (!Shotgun) return;
+
+        // Handles shooting shotgun projectiles
+        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+            
+        float leftRadians = (angle - shotgunAngle) * Mathf.Deg2Rad;
+        Vector2 leftDirection = new (Mathf.Sin(leftRadians), Mathf.Cos(leftRadians));
+        float rightRadians = (angle + shotgunAngle) * Mathf.Deg2Rad;
+        Vector2 rightDirection = new (Mathf.Sin(rightRadians), Mathf.Cos(rightRadians));
+
+        ShootSingleProjectile(leftDirection);
+        ShootSingleProjectile(rightDirection);
+    }
+
+    private void ShootSingleProjectile(Vector2 direction)
+    {
         // Creates projectile
         ProjectileController p = Instantiate(projectile, transform.position, Quaternion.identity)
             .GetComponent<ProjectileController>();
@@ -217,10 +236,12 @@ public class PlayerController : MonoBehaviour
         p.SetDirection(direction);
         p.SetDamage(RangeDamage);
         p.SetColour(GetColour(playerColour));
+        p.SetMomentum(Momentum ? momentumDistanceMultiplier : 1.0f);
+        p.SetVolatile(Volatile, volatileRadius, volatileDamage);
         p.SetHoming(Homing, homingSmoothing);
     }
 
-    public float GetHitDamage()
+    public float GetMeleeDamage()
     {
         if (!Combo) return MeleeDamage;
 
@@ -229,6 +250,7 @@ public class PlayerController : MonoBehaviour
             _currentCombo++;
             if (_currentCombo == comboHits)
             {
+                Debug.Log("Combo Attack");
                 _comboTimer = 0;
                 _currentCombo = 0;
                 _meleeAttackTimer = postComboDelayMultiplier / MeleeSpeed;
@@ -238,6 +260,21 @@ public class PlayerController : MonoBehaviour
         
         _comboTimer = comboDelay;
         return MeleeDamage;
+    }
+
+    public void MeleeKill()
+    {
+        if (!LifeSteal) return;
+        _health = Mathf.Min(_health + lifeStealHealth, MaxHealth);
+    }
+
+    public void StunEnemy(EnemyController enemy)
+    {
+        float r = Random.Range(0.0f, 1.0f);
+        if (r < stunChance)
+        {
+            enemy.Stun(stunDuration);
+        }
     }
 
     private void Awake()
@@ -303,6 +340,11 @@ public class PlayerController : MonoBehaviour
             _meleeAttackTimer = 1 / MeleeSpeed;
         }
 
+        if (_comboTimer > 0)
+        {
+            _comboTimer -= Time.deltaTime;
+        }
+        
         
         // Ranged attack recharge delay
         if (_ammoRechargeTimer > 0)
@@ -335,7 +377,19 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetButtonDown("Fire2") && _ammo >= 1)
         {
-            _ammo -= 1;
+            if (Resourceful)
+            {
+                float r = Random.Range(0.0f, 1.0f);
+                if (r > resourcefulChance)
+                {
+                    _ammo--;
+                }
+            }
+            else
+            {
+                _ammo--;
+            }
+            
             _rangeAttackTimer = 1 / RangeSpeed;
             
             ShootProjectile(toMousePos.normalized);
