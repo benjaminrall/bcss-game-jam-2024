@@ -129,17 +129,163 @@ public class DungeonGenerator : MonoBehaviour
 
     public static int GetDoorValue(int x)
     {
-        for (int n = 6; n < 100; n += 3) 
+        // If x is less than 36, return 1 door
+        if (x < 36)
         {
-            if (x < n * n) 
-            {
-                return (n / 3) - 1; 
-            }
+            return 1;
         }
-        return 100; 
+
+        // For values >= 36, calculate how many additional doors are needed
+        // Start at 36 and every 10 units above it will add 1 door.
+        return 1 + (x - 36) / 40;
     }
 
-   
+    public static List<List<KeyValuePair<RoomSeeds, List<Vector2Int>>>> GetCombinationsFromNToMax(
+    Dictionary<RoomSeeds, List<Vector2Int>> dict,
+    Dictionary<RoomSeeds, List<Vector2Int>> secondDict,
+    int n)
+    {
+        List<KeyValuePair<RoomSeeds, List<Vector2Int>>> dictList = new List<KeyValuePair<RoomSeeds, List<Vector2Int>>>(dict);
+
+        List<List<KeyValuePair<RoomSeeds, List<Vector2Int>>>> combinations = new List<List<KeyValuePair<RoomSeeds, List<Vector2Int>>>>();
+
+        int count = (int)Mathf.Pow(2, dict.Count);
+
+        for (int i = 0; i < count; i++)
+        {
+            string binaryString = System.Convert.ToString(i, 2).PadLeft(dict.Count, '0');
+
+            // Create a list to store the current combination
+            List<KeyValuePair<RoomSeeds, List<Vector2Int>>> currentCombination = new List<KeyValuePair<RoomSeeds, List<Vector2Int>>>();
+
+            // Add elements from dictList to the current combination based on the binary string
+            for (int j = 0; j < binaryString.Length; j++)
+            {
+                if (binaryString[j] == '1')
+                {
+                    currentCombination.Add(dictList[j]);
+                }
+            }
+
+            // Check if all values from secondDict are included in the current combination
+            bool isValidCombination = true;
+            if (secondDict.Count >= 1)
+                foreach (var kvp in secondDict)
+                {
+                    bool found = false;
+                    foreach (var combinationKvp in currentCombination)
+                    {
+                        if (combinationKvp.Key.Equals(kvp.Key) && combinationKvp.Value.SequenceEqual(kvp.Value))
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    // If any value from secondDict is missing, the combination is invalid
+                    if (!found)
+                    {
+                        isValidCombination = false;
+                        break;
+                    }
+            }
+
+            // If the combination is valid, add it to the list of combinations
+            if (isValidCombination && currentCombination.Count >= n)
+            {
+                combinations.Add(currentCombination);
+            }
+        }
+
+        return combinations;
+    }
+
+
+
+    bool reduceRoomConnections(List<RoomSeeds> rooms, int index = 0)
+    {
+        if (index >= rooms.Count)
+        {
+            return true; // All rooms have been processed, successfully reduced connections
+        }
+
+        RoomSeeds currentRoom = rooms[index];
+        int minDoors = Mathf.Min(currentRoom.neighbouringRooms.Count, GetDoorValue(currentRoom.roomSize) - currentRoom.chosenDoors.Count);
+        Debug.Log("Min doors is" + minDoors);
+
+        // Backup the current neighboring rooms state before modifying anything
+        Dictionary<RoomSeeds, List<Vector2Int>> originalNeighbours = new Dictionary<RoomSeeds, List<Vector2Int>>(currentRoom.neighbouringRooms);
+        Dictionary<RoomSeeds, List<Vector2Int>> originalChosenDoors = new Dictionary<RoomSeeds, List<Vector2Int>>(currentRoom.chosenDoors);
+
+        var combinations = GetCombinationsFromNToMax(originalNeighbours, currentRoom.chosenDoors, minDoors);
+        print("no of combinations is" + combinations.Count);
+        foreach (var combination in combinations)
+        {
+            foreach(var room in combination)
+            {
+                if (room.Key.chosenDoors.Count >= GetDoorValue(room.Key.roomSize) && !room.Key.chosenDoors.ContainsKey(currentRoom))
+                    continue;
+            }
+            Debug.Log(index);
+            // Apply the new combination to the current room
+            currentRoom.neighbouringRooms = new Dictionary<RoomSeeds, List<Vector2Int>>(combination);
+            currentRoom.chosenDoors = new Dictionary<RoomSeeds, List<Vector2Int>>(combination);
+
+
+            // Update the chosenDoors in both directions
+            foreach (KeyValuePair<RoomSeeds, List<Vector2Int>> room in combination)
+            {
+                if (!room.Key.chosenDoors.ContainsKey(currentRoom))
+                {
+                    room.Key.chosenDoors.Add(currentRoom, room.Value);
+                }
+            }
+
+            // Ensure we only update removed neighboring rooms from originalNeighbours
+            foreach (KeyValuePair<RoomSeeds, List<Vector2Int>> room in originalNeighbours)
+            {
+                if (!currentRoom.neighbouringRooms.ContainsKey(room.Key))
+                {
+                    room.Key.neighbouringRooms.Remove(currentRoom);
+                }
+            }
+
+            // Check if the graph is still fully connected
+            if (IsGraphFullyConnected(rooms))
+            {
+                // Recursively attempt to reduce connections in the next room
+                if (reduceRoomConnections(rooms, index + 1))
+                {
+                    return true; // If it works, we are done
+                }
+            }
+
+            // If not successful, revert to the original state
+            currentRoom.neighbouringRooms = new Dictionary<RoomSeeds, List<Vector2Int>>(originalNeighbours);
+            currentRoom.chosenDoors = new Dictionary<RoomSeeds, List<Vector2Int>>(originalChosenDoors);
+
+            // Remove the connections from the combination, restore previous state
+            foreach (KeyValuePair<RoomSeeds, List<Vector2Int>> room in combination)
+            {
+                if(!currentRoom.chosenDoors.ContainsKey(room.Key))
+                    room.Key.chosenDoors.Remove(currentRoom);
+            }
+
+            // Restore original neighboring rooms
+            foreach (KeyValuePair<RoomSeeds, List<Vector2Int>> room in originalNeighbours)
+            {
+                if (!room.Key.neighbouringRooms.ContainsKey(currentRoom))
+                {
+                    room.Key.neighbouringRooms.Add(currentRoom, originalNeighbours[room.Key]);
+                }
+            }
+        }
+
+        return false; // If no successful reduction was found
+    }
+
+
+
     void Start()
     {
         map = new Map((int)(topRight.x - bottomLeft.x), (int)(topRight.y - bottomLeft.y));
@@ -162,7 +308,7 @@ public class DungeonGenerator : MonoBehaviour
         for (int i = 0; i < map.grid.Count; i++)
         {
             Vector2Int current = new Vector2Int(i % map.xSize, i / map.xSize);
-            if(map.getValueAt(current) == -1)
+            if (map.getValueAt(current) == -1)
 
                 foreach (Vector2Int direction in new Vector2Int[]
     {
@@ -173,7 +319,7 @@ public class DungeonGenerator : MonoBehaviour
                     Vector2Int adjacent = current + direction;
                     Vector2Int opposite = current - direction;
 
-                    if (adjacent.x < 0 || adjacent.x >= map.xSize || adjacent.y < 0 || adjacent.y >= map.ySize )
+                    if (adjacent.x < 0 || adjacent.x >= map.xSize || adjacent.y < 0 || adjacent.y >= map.ySize)
                         continue;
 
                     if (opposite.x < 0 || opposite.x >= map.xSize || opposite.y < 0 || opposite.y >= map.ySize)
@@ -203,9 +349,10 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         rooms = rooms.Where(room => room.neighbouringRooms.Any()).ToList();
-       
+
         Debug.Log("The graph is connected:" + IsGraphFullyConnected(rooms));
-        var sortedRooms = rooms.OrderBy(room => room.roomSize).ToList();
+        var sortedRooms = rooms.OrderByDescending(room => room.roomSize).ToList();
+        reduceRoomConnections(sortedRooms, 0);
 
         HashSet<(int, int)> processedRoomPairs = new HashSet<(int, int)>();
 
@@ -232,7 +379,7 @@ public class DungeonGenerator : MonoBehaviour
 
 
                 Vector2Int door = doorPositions[Random.Range(0, doorPositions.Count)];
-                map.setCell(door, -3); 
+                map.setCell(door, -3);
             }
         }
 
@@ -254,7 +401,7 @@ public class DungeonGenerator : MonoBehaviour
                 Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
                 Instantiate(pointPrefab, position, Quaternion.identity);
             }
-            else if (map.grid[i] > 0)
+            else if (map.grid[i] >= 0)
             {
                 Vector3 position = new Vector3((int)i % map.xSize, (int)i / map.xSize, 0);
                 GameObject roomObj = Instantiate(pointPrefab2, position, Quaternion.identity);

@@ -13,7 +13,7 @@ public class RoomSeeds
     Queue<Vector2Int> maxQueue = new Queue<Vector2Int>();
     List<RoomSeeds> rooms;
     public Dictionary<RoomSeeds, List<Vector2Int>> neighbouringRooms = new Dictionary<RoomSeeds, List<Vector2Int>>();
-    public Dictionary<RoomSeeds, List<Vector2Int>> neighbouringRoomsCopy = new Dictionary<RoomSeeds, List<Vector2Int>>();
+    public Dictionary<RoomSeeds, List<Vector2Int>> chosenDoors = new Dictionary<RoomSeeds, List<Vector2Int>>();
     public int roomSize = 0;
     public int doors;
 
@@ -96,9 +96,47 @@ public class RoomSeeds
             Vector2Int current = q.Dequeue();
             if (map.getValueAt(current) != -2)
             {
+                nodesToBeChecked.Remove(current);
                 continue;
             }
 
+            
+            foreach (Vector2Int direction in new Vector2Int[]
+            {
+                new Vector2Int(1, 1),
+                new Vector2Int(-1, -1),
+                new Vector2Int(-1, 1),
+                new Vector2Int(1, -1),
+                new Vector2Int(1, 0),
+                new Vector2Int(-1, 0),
+                new Vector2Int(0, 1),
+                new Vector2Int(0, -1)
+            })
+            {
+                Vector2Int neighbor = current + direction;
+                if (neighbor.x >= 0 && neighbor.x < map.xSize && neighbor.y >= 0 && neighbor.y < map.ySize)
+                    if (map.getValueAt(neighbor) != roomNumber && map.getValueAt(neighbor) != -1 && map.getValueAt(neighbor) != -2)
+                        hits += 1;
+
+            }
+
+            if (walls.Contains(current) || hits >= 1)
+            {
+                if (includeWall && map.getValueAt(current) == -2)
+                {
+                    map.setCell(current, -1);
+                    continue;
+                }
+            }
+            else
+            {
+                if (nodesToBeChecked.Contains(current))
+                {
+                    map.setCell(current, roomNumber);
+                    roomSize += 1;
+                }
+            }
+            nodesToBeChecked.Remove(current);
             foreach (Vector2Int direction in new Vector2Int[]
             {
                 new Vector2Int(1, 0),
@@ -126,41 +164,6 @@ public class RoomSeeds
                     }
                 }
             }
-            foreach (Vector2Int direction in new Vector2Int[]
-            {
-                new Vector2Int(1, 1),
-                new Vector2Int(-1, -1),
-                new Vector2Int(-1, 1),
-                new Vector2Int(1, -1),
-                new Vector2Int(1, 0),
-                new Vector2Int(-1, 0),
-                new Vector2Int(0, 1),
-                new Vector2Int(0, -1)
-            })
-            {
-                Vector2Int neighbor = current + direction;
-                if (neighbor.x >= 0 && neighbor.x < map.xSize && neighbor.y >= 0 && neighbor.y < map.ySize)
-                    if (map.getValueAt(neighbor) != roomNumber && map.getValueAt(neighbor) != -1 && map.getValueAt(neighbor) != -2)
-                        hits += 1;
-
-            }
-
-            if (walls.Contains(current) || hits >= 1)
-            {
-                if (includeWall)
-                {
-                    map.setCell(current, -1);
-                }
-            }
-            else
-            {
-                if (nodesToBeChecked.Contains(current))
-                {
-                    map.setCell(current, roomNumber);
-                    roomSize += 1;
-                }
-            }
-            nodesToBeChecked.Remove(current);
         }
         q.Clear();
     }
